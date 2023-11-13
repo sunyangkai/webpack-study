@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "husky": {
+    "hooks": {
+      "pre-push": "pnpm run check-merge"
+     }
+  },
   "scripts": {
-
-    "pre-push": "pnpm run check-merge",
-
     "prepare": "husky install",
     "check-merge": "node scripts/checklog.js",
 

@@ -7,11 +7,12 @@ function getCurrentBranch() {
 function checkMerge() {
   const currentBranch = getCurrentBranch();
   console.log('currentBranch', currentBranch)
-  const mergeLog = execSync(`git log origin/${currentBranch}..${currentBranch}`).toString(); // --merges --pretty=format:"%s"
-  console.log('mergeLog')
-  console.log(mergeLog)
-  
-  console.log('xx')
+  const mergeLog = execSync(`git log origin/${currentBranch}..${currentBranch} --pretty=format:"%s"`).toString(); // --merges --pretty=format:"%s"
+  if (!!mergeLog) {
+    const msgs = mergeLog.split('\n');
+    console.log(msgs)
+    process.exit(1);
+  }
 //   process.exit(1);
 
 //   // 检查逻辑q
