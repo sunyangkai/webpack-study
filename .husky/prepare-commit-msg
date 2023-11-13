@@ -1,0 +1,20 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+
+echo "prepare-commit-msg hook"
+# 仅在合并提交时执行
+if [ "$1" = ".git/MERGE_MSG" ]; then
+    current_branch=$(git branch --show-current)
+
+    if [[ $current_branch == f-* ]]; then
+        # 获取正在合并的分支名
+        merging_branch=$(git branch --contains $(cat .git/MERGE_HEAD) | grep -v "$current_branch" | xargs)
+
+        # 检查正在合并的分支是否以 bg- 开头
+        if [[ $merging_branch == bg-* ]]; then
+            echo "不允许将以 bg- 开头的分支合并到以 f- 开头的分支"
+            exit 1
+        fi
+    fi
+fi

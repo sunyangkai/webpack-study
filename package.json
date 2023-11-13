@@ -6,6 +6,8 @@
   "scripts": {
     
     "prepare": "husky install",
+    "postinstall": "git config --local alias.merge '!f() { sh .husky/safe-merge.sh \"$@\"; }; f'",
+    
     "dev": "cross-env NODE_ENV=dev webpack serve --mode development --config webpack/dev.js",
     "test": "cross-env NODE_ENV=test webpack --mode production",
     "build": "cross-env NODE_ENV=prod webpack --mode production --config webpack/pro.js",
