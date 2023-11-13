@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pre-push": "pnpm run check-merge",
     
+    "pre-push": "pnpm run check-merge",
+
     "prepare": "husky install",
     "check-merge": "node scripts/check-merge.js",
 
