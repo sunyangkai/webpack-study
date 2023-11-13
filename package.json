@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "pre-push": "pnpm run check-merge",
     
     "prepare": "husky install",
-    "postinstall": "git config --local alias.merge '!f() { sh .husky/safe-merge.sh \"$@\"; }; f'",
+    "check-merge": "node scripts/check-merge.js",
+
     
     "dev": "cross-env NODE_ENV=dev webpack serve --mode development --config webpack/dev.js",
     "test": "cross-env NODE_ENV=test webpack --mode production",
