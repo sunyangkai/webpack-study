@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    
+
     "pre-push": "pnpm run check-merge",
 
     "prepare": "husky install",
-    "check-merge": "node scripts/check-merge.js",
+    "check-merge": "node scripts/checklog.js",
 
     
     "dev": "cross-env NODE_ENV=dev webpack serve --mode development --config webpack/dev.js",
