@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script>
+                console.log('script start');
+
+                    setTimeout(function() { // 宏任务1
+                    console.log('setTimeout1');
+                    Promise.resolve().then(function() { // 微任务1
+                        console.log('promise1');
+                    });
+                    }, 0);
+
+                    setTimeout(function() { // 宏任务2
+                    console.log('setTimeout2');
+                    Promise.resolve().then(function() { // 微任务2
+                        console.log('promise2');
+                    });
+                    }, 0);
+
+                    Promise.resolve().then(function() { // 微任务3
+                    console.log('promise3');
+                    setTimeout(function() { // 宏任务3
+                        console.log('setTimeout3');
+                        Promise.resolve().then(function() { // 微任务4
+                        console.log('promise4');
+                        });
+                    }, 0);
+                    }).then(function() { // 微任务5
+                    console.log('promise5');
+                    });
+
+                    console.log('script end');
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

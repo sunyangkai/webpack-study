@@ -1,0 +1,50 @@
+
+{
+    "compilerOptions": {
+        "downlevelIteration": true,
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        /*
+            这选项允许你在TypeScript中导入默认导出的模块（例如CommonJS模块）时，像导入ES模块一样使用语法。
+            默认情况下，TypeScript不允许此行为，因为CommonJS模块系统没有明确的默认导出的概念。设置为 true 启用这一功能。
+        */
+        "esModuleInterop": true,
+        /*
+            此选项与允许 allowSyntheticDefaultImports 一起使用，以确保在导入CommonJS模块时，TypeScript能够正确地将其解释为ES模块。
+            它实际上启用了一种兼容性模式，使CommonJS模块能够与ES模块一起工作。
+        */
+        "jsx":"react-jsx",
+        "target": "ES5",
+        "module": "es6",
+        "allowJs": true,
+        "experimentalDecorators": true,
+        "watch": true,
+        "noEmitOnError": true,
+        "noEmit": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        
+        "lib": [
+            "dom",
+            "es2015",
+            "ES2016",
+            "ES2019",
+        ],
+        "moduleResolution": "node",
+        "typeRoots": [
+            "node_modules/@types",
+            "@types"
+        ],
+        "baseUrl": "./",
+        "paths": {
+            "utils/*": ["src/utils/*"],
+        }
+    },
+    "include": [ // TypeScript 编译器将仅编译这些指定的文件或文件夹中的文件
+        "./src/**/*",
+        "./public/**/*",
+    ],
+    "exclude": [ // 这个文件夹是用来调试react源码的
+        "./src/react/**/*"
+    ]
+}

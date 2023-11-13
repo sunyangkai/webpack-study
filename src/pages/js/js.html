@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script>
+            /*
+               generator暂停函数  function* yield 关键字
+               在实际使用中广泛地被promise和async取代
+            */
+            function* generateFunc() {
+                yield console.log('first');
+                console.log('proces')
+                yield console.log('second');
+            }
+            const iterator = generateFunc();
+            iterator.next();
+            iterator.next();
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

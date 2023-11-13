@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        var fname = 'father'
+        var obj = { name: 'ouoter' }
+        function father() {
+            var cname = 'child'
+            function child() {
+                console.log(this)
+            }
+            const child2 = () => {
+                console.log(this)
+            }
+            child2();
+        }
+        var obj2 = {
+            name: 'obj2',
+            father
+        }
+        obj2.father();
+    </script>
+    <body>
+
+    </body>
+</html>

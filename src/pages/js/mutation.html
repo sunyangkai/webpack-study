@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <!-- 
+        元素节点（Element Node）：表示 HTML 元素，例如 <div>、<p>、<a> 等。每个元素节点都有一个标签名，可以通过 tagName 属性来获取。
+        文本节点（Text Node）：表示文本内容，例如 <p>这是一段文本。</p> 中的 这是一段文本。。每个文本节点都有一个文本值，可以通过 nodeValue 属性来获取。
+        属性节点（Attribute Node）：表示 HTML 元素的属性，例如 <a href="https://www.example.com/">链接</a> 中的 href 属性。每个属性节点都有一个属性名和属性值，可以通过 name 和 value 属性来获取。
+        注释节点（Comment Node）：表示 HTML 注释，例如 -- 这是一个注释 --。每个注释节点都有一个注释内容，可以通过 nodeValue 属性来获取。
+        文档节点（Document Node）：表示整个 HTML 文档，是 DOM 树的根节点。文档节点没有父节点，但是可以通过 childNodes 属性获取它的子节点列表。
+        文档类型节点（DocumentType Node）：表示文档的类型声明，例如 <!DOCTYPE html>。每个文档类型节点都有一个名称和一个公共标识符（public identifier）和系统标识符（system identifier），可以通过 name、publicId 和 systemId 属性来获取。
+        文档片段节点（DocumentFragment Node）：表示一个空白的文档片段，可以用来作为容器来存储和操作其他节点。文档片段节点没有父节点，但是可以通过 childNodes 属性获取它的子节点列表。 -->
+  <head>
+    <meta charset="UTF-8">
+    <title>MutationObserver Example</title>
+  </head>
+  <body>
+    <div id="target">
+      <h1>Hello, World!</h1>
+      <p>这是一段示例文本。</p>
+    </div>
+
+    <script>
+      const targetNode = document.getElementById('target');
+
+      const observer = new MutationObserver(function(mutationsList, observer) {
+        for (let mutation of mutationsList) {
+          if (mutation.type === 'childList') {
+            console.log('子节点发生变化');
+            console.log('添加的节点：', mutation.addedNodes);
+            console.log('移除的节点：', mutation.removedNodes);
+
+            // 遍历被更改的子节点
+            mutation.target.childNodes.forEach(function(node) {
+              if (node.nodeType === Node.ELEMENT_NODE && node.hasAttribute('data-changed')) {
+                console.log('被更改的子节点：', node);
+              }
+            });
+          }
+        }
+      });
+
+      const config = { childList: true, subtree: true };
+
+      observer.observe(targetNode, config);
+
+      // 添加、移除和更改子节点
+      const child1 = document.createElement('p');
+      child1.textContent = '这是一个新的子节点。';
+      child1.setAttribute('data-changed', 'true');
+      targetNode.appendChild(child1);
+
+      const child2 = document.createElement('p');
+      child2.textContent = '这是另一个新的子节点。';
+      child2.setAttribute('data-changed', 'true');
+      targetNode.appendChild(child2);
+
+      targetNode.removeChild(targetNode.lastElementChild);
+
+      targetNode.childNodes.forEach(function(node) {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          node.setAttribute('data-changed', 'true');
+        }
+      });
+    </script>
+  </body>
+</html>

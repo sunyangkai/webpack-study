@@ -1,0 +1,214 @@
+<!DOCTYPE html> <!-- 声明html5， 声明文档定义类型DTD，告诉浏览器文档使用哪种规范编写的 -->
+<html>
+
+<head>
+</head>
+<style>
+    .rect {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .min-rect {
+        width: 50px;
+        height: 50px;
+        border: 1px solid black;
+    }
+
+    .rect1 {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+    }
+
+    .rect2 {
+        border: 1px solid red;
+        display: flex;
+    }
+
+    .rect3 {
+        width: 50px;
+        height: 50px;
+        border: 1px solid black;
+        float: right;
+    }
+
+    .mt20 {
+        margin-top: 20px;
+    }
+
+    .mb20 {
+        margin-bottom: 20px;
+    }
+
+    .mt30 {
+        margin-top: 30px;
+    }
+
+    .mb30 {
+        margin-bottom: 30px;
+    }
+
+
+    /* 双飞翼布局
+            flex: 1; 是一个用于设置 Flexbox 布局的 CSS 属性，通常应用于 flex 容器内的 flex 项目（flex items）。
+            这个属性的含义是：
+
+                flex-grow: 1;：表示该项目将会占据剩余的可用空间，即项目将根据可用空间的大小而自动扩展。如果容器有多个具有 flex: 1; 的项目，它们将等分可用空间。
+
+                flex-shrink: 1;：表示该项目在容器空间不足时将等比例缩小，以避免溢出容器。如果容器有多个具有 flex: 1; 的项目，它们将等比例缩小以适应可用空间。
+
+                flex-basis: 0;：项目的初始大小为 0，即项目在分配可用空间之前没有默认大小。
+
+            这样设置 flex: 1; 的项目会使它们在容器中平均分配可用空间，从而实现弹性布局。这对于创建自适应的、响应式设计非常有用，因为项目会根据容器的大小自动调整大小，填充或收缩以适应不同的屏幕尺寸。
+
+
+            // 传统布局 https://juejin.cn/post/6999803276971474980?from=search-suggest
+
+
+            // 浮动：https://juejin.cn/post/7216221384371781669?searchId=2023091511411788F80CBD0E8EFAAEB958#comment
+         
+         */
+    .container {
+        display: flex;
+        flex-direction: row;
+        /* 设置为水平方向的行布局 */
+        max-width: 1000px;
+        /* 可选的最大宽度 */
+        margin: 0 auto;
+        /* 水平居中 */
+    }
+
+    .main-content {
+        flex: 1;
+        /* 主要内容列会占据剩余空间 */
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    .left-sidebar,
+    .right-sidebar {
+        width: 200px;
+        /* 固定宽度的侧边列 */
+        background-color: #ddd;
+        padding: 20px;
+    }
+
+    .outer {
+        width: 200px;
+        border: 1px solid black;
+        overflow: hidden;
+        /* 触发BFC，创建BFC容器 */
+    }
+
+    .inner {
+        width: 100px;
+        height: 100px;
+        background-color: lightblue;
+        float: left;
+        /* 浮动元素 */
+    }
+</style>
+
+<body>
+    <div>
+
+    </div>
+    <!-- 块级格式化：一种用于定义块级元素的显示和布局规则的机制 
+                块级格式化规则包括了以下方面的定义：
+                    外观和布局： 块级格式化规则确定了块级元素的外观和布局方式，包括元素的宽度、高度、边距（margin）、内边距（padding）、边框（border）等属性。
+                    文本流： 块级格式化规则定义了块级元素内文本的流动方式，包括文本如何被包裹、如何进行换行，以及如何处理溢出文本等。
+                    盒模型： 块级元素遵循盒模型，将元素划分为内容框、内边距框、边框框和外边距框。块级格式化规则决定了这些框的大小和相对位置。
+                    浮动和清除： 块级元素可以使用 float 属性进行浮动，以使元素在容器内的左侧或右侧浮动，从而实现文本环绕图片等效果。clear 属性用于控制元素如何处理浮动元素。
+                    定位和层叠： 块级元素可以使用定位属性（如 position 和 z-index）来控制元素的定位和层叠顺序。
+        -->
+    <!-- 浮动高度塌陷 -->
+    <!-- <div class="rect2">
+            <div class="rect3">3</div>
+        </div> -->
+
+    <!-- 外边距合并：父元素和第一个/最后一个子元素外边距合并 -->
+    <!-- <div class="rect mt20">
+            <div class="min-rect mt30"></div>
+        </div> -->
+    <!-- 外边距合并：相邻兄弟元素外边距合并 -->
+    <!-- <div class="rect mt20 mb20"></div>
+        <div class="rect mt30"></div> -->
+
+    <!-- 外边距合并：空块级元素外边距合并 -->
+    <!-- <div class="mt20 mb30"></div>
+        <div class="rect"></div> -->
+
+
+
+
+
+
+    <!-- 
+            3种文档流定位方案：
+
+            常规流：，盒一个接着一个排列
+                块级格式化上下文里面， 它们竖着排列。块级元素则会被渲染为完整的一个新行，除非另外指定，否则所有元素默认都是普通流定位
+                行内格式化上下文里面， 它们横着排列。直到当行被占满然后换行
+                position: static/relative。 float： none 会触发常规流；
+                静态定位：position: static，盒的位置是常规流布局里的位置。它不能使用top定位，只能改变盒模型margin-top
+                相对定位：position: relative，盒偏移位置由top、bottom、left、right属性定义。即使有偏移，仍然保留原有的位置，其它常规流不能占用这个位置
+
+            浮动：
+                左浮动元素尽量靠左、靠上，右浮动同理
+                常规流环绕在它的周边，除非设置 clear 属性。典型的文字环绕
+                浮动元素不会影响块级元素的布局
+                浮动元素影响行内元素的布局，让其围绕在自己周围，撑大父级元素，从而间接影响块级元素布局
+                浮动元素脱离文档流，父元素不再自适应浮动元素，造成高度塌陷
+
+            绝对定位：position： absolute fixed
+                盒从常规流中被移除，不影响常规流的布局
+                它的定位相对于它的包含块，相关CSS属性：top、bottom、left、right
+                position: absolute，元素定位将相对于上级元素中最近的一个非静态定位（static）的元素（relative, absolute,fixed），如果没有则相对于body
+                fixed：元素相对于视口（浏览器窗口）进行定位，而不是相对于文档的任何其他元素。这意味着即使页面滚动，fixed元素仍然会保持在固定位置
+
+            BFC规则：
+                Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠
+                独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。典型的例子是浮动元素也不会造成父元素高度塌陷，overflow 设置后内部元素不会撑大父元素
+                BFC的区域不会与float box重叠，变相清除了浮动
+
+                触发BFC：根元素html，浮动元素，overflow不为visible，display的值为inline-block、table-cell、table-caption; position的值为absolute或fixed
+
+                BFC应用：
+                    1、自适应两栏布局， 利用bfc和浮动box不重叠
+                    2、可以阻止元素被浮动元素覆盖
+                    3、可以包含浮动元素——清除内部浮动
+                    4、分属于不同的BFC时可以阻止margin重叠
+
+
+          -->
+    <div style="width: 400px;border: 1px solid green;">
+        <!-- <div style="width: 50px;height: 150px;border: 1px solid red;box-sizing: border-box;">1</div>
+            <div style="width: 50px;height: 150px;border: 1px solid red;box-sizing: border-box;left: 200px;top: -100px;position: relative;">2</div>
+            <div style="width: 50px;height: 100px;border: 1px solid red;box-sizing: border-box;display: inline-block;">3</div> -->
+
+        <!-- <div style="width: 50px;height: 150px;border: 1px solid yellow;box-sizing: border-box;">1</div>
+            <div style="width: 100px;height: 100px;border: 1px solid red;box-sizing: border-box;float: left;"></div>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel justo nec urna vehicula eleifend.
+                Integer auctor leo et facilisis. Nulla facilisi. Nulla facilisi.
+            </p>
+            <div style="clear: both;"></div> -->
+
+
+        <!-- <div class="outer">
+            <p>This is some text in the outer container.</p>
+            <div class="inner"></div>
+        </div>
+        <p>This is some text outside the outer container.</p> -->
+    </div>
+
+
+</body>
+
+</html>

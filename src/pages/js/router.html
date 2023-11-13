@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li><a href="#/home">首页</a></li>
+        <li><a href="#/about">关于</a></li>
+    </ul>
+
+    <!-- 渲染对应的ui -->
+    <div id="routerView"></div>
+
+
+    <script>
+        let routerView = document.getElementById('routerView');   // 获取插入html的dom结构
+
+        window.addEventListener('load',onHashchange)
+
+        window.addEventListener('hashchange', onHashchange)// 浏览器自带的监听哈希值改变的方法:hashchange
+         
+        // 控制渲染对应的 UI 
+        function onHashchange() {
+            // console.log(location.hash);
+            switch (location.hash) { //  location.hash为哈希值
+                case '#/home': 
+                  routerView.innerHTML = 'Home'
+                  return
+                case '#/about':
+                  routerView.innerHTML = 'About'
+                  return
+                default:
+                  return
+            }
+        }
+
+        routerView.innerHTML = 'Home'
+    </script>
+</body>
+</html>
