@@ -10,6 +10,7 @@ function checkMerge() {
   const mergeLog = execSync(`git log origin/${currentBranch}..${currentBranch}`).toString(); // --merges --pretty=format:"%s"
   console.log('mergeLog')
   console.log(mergeLog)
+  
   console.log('xx')
 //   process.exit(1);
 
