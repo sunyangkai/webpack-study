@@ -7,7 +7,7 @@ function getCurrentBranch() {
 function checkMerge() {
   const currentBranch = getCurrentBranch();
   console.log('currentBranch', currentBranch)
-  const mergeLog = execSync(`git log origin/${currentBranch}..${currentBranch} --pretty=format:"%s"`).toString(); // --merges --pretty=format:"%s"
+  const mergeLog = execSync(`git log origin/${currentBranch}..${currentBranch} --merges --pretty=format:"%s"`).toString(); // --merges --pretty=format:"%s"
   if (!!mergeLog) {
     const msgs = mergeLog.split('\n');
     console.log(msgs)
