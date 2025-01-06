@@ -16,6 +16,7 @@ function getCurrentBranch() {
 // });
 
 
+
 // }
 
 
@@ -28,6 +29,7 @@ function checkMerge() {
   //   --merges：这个选项限制只显示合并提交，即那些将不同分支的变更合并到当前分支的提交。
    //  --pretty=format:"%s"：只输出每个提交的提交信息（即提交的标题，不包含详细的提交内容）。
   const mergeLog = execSync(`git log origin/${currentBranch}..${currentBranch} --merges --pretty=format:"%s"`).toString(); 
+  console.log('mergeLog', mergeLog)
   if (mergeLog) {
     const msgs = mergeLog.split('\n');
     console.log('合并分支记录:')
