@@ -5,6 +5,7 @@ target_branch=$1
 
 # 获取当前分支名称
 current_branch=$(git rev-parse --abbrev-ref HEAD)
+
 echo '获取当前分支名称'
 # 检查是否允许合并
 # if [[ $current_branch == f-* ]] && [[ $target_branch == bg-* ]]; then
